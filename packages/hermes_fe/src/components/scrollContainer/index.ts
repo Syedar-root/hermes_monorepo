@@ -1,6 +1,10 @@
 import styles from './index.module.css'
 
-export function ScrollContainer(maxHeight?: number, content?: HTMLElement) {
+export function ScrollContainer(
+  maxHeight?: number,
+  content?: HTMLElement,
+  onHeightChange?: (height: number) => void
+) {
   const container = document.createElement('div')
   container.classList.add(styles['hermes-panel-content-scroll'])
 
@@ -19,11 +23,38 @@ export function ScrollContainer(maxHeight?: number, content?: HTMLElement) {
     container.innerHTML = ''
     container.appendChild(content)
     container.appendChild(track)
+
+    if (maxHeight) setMaxHeight(maxHeight)
   }
 
   function setMaxHeight(maxHeight: number) {
-    container.style.height = `${maxHeight}px`
-    track.style.height = `${maxHeight}px`
+    // 使用requestAnimationFrame确保浏览器完成重排
+    requestAnimationFrame(() => {
+      container.style.height = 'auto'
+      // 获取内容高度
+      const contentHeight = container.scrollHeight || 0
+      console.log('contentHeight', contentHeight)
+      // 如果内容高度小于maxHeight，则使用内容高度，否则使用maxHeight
+      const actualHeight = contentHeight < maxHeight ? contentHeight : maxHeight
+      container.style.height = `${actualHeight}px`
+      track.style.height = `${actualHeight}px`
+
+      // 根据内容高度决定是否显示滚动条
+      if (contentHeight <= actualHeight) {
+        bar.style.opacity = '0'
+        // 完全隐藏滚动条轨道
+        track.style.display = 'none'
+      } else {
+        bar.style.opacity = '1'
+        track.style.display = 'block'
+      }
+      if (onHeightChange) onHeightChange(actualHeight)
+    })
+  }
+
+  function setOnHeightChange(callback: (height: number) => void) {
+    onHeightChange = callback
+    if (maxHeight) setMaxHeight(maxHeight)
   }
 
   if (content) setContent(content)
@@ -33,22 +64,44 @@ export function ScrollContainer(maxHeight?: number, content?: HTMLElement) {
   let barOffset = 0
 
   // 计算滚动条位置
+  // 修改updateBarOffset函数
   const updateBarOffset = () => {
     const scrollHeight = container.scrollHeight
     const clientHeight = container.clientHeight
-    if (clientHeight <= scrollHeight) {
+
+    if (clientHeight < scrollHeight) {
       const barHeight = (clientHeight / scrollHeight) * clientHeight
       bar.style.height = `${barHeight}px`
       const scrollTop = container.scrollTop
       const offsetRatio = scrollTop / (scrollHeight - clientHeight)
       barOffset = offsetRatio * (clientHeight - barHeight)
       bar.style.transform = `translateY(${barOffset}px)`
+      // 确保滚动条和轨道可见
+      bar.style.opacity = '1'
+      track.style.display = 'block'
     } else {
       bar.style.height = '0px'
+      // 隐藏滚动条和轨道
+      bar.style.opacity = '0'
+      track.style.display = 'none'
     }
   }
 
-  updateBarOffset()
+  // 修改初始化部分，确保滚动条状态正确
+  // 使用requestAnimationFrame确保浏览器完成重排
+  requestAnimationFrame(() => {
+    updateBarOffset()
+    // 初始化时根据内容高度决定是否显示滚动条
+    const contentHeight = container.scrollHeight || 0
+    const clientHeight = container.clientHeight
+    if (contentHeight <= clientHeight) {
+      bar.style.opacity = '0'
+      track.style.display = 'none'
+    } else {
+      bar.style.opacity = '1'
+      track.style.display = 'block'
+    }
+  })
   container.addEventListener('scroll', updateBarOffset)
   track.addEventListener('scroll', updateBarOffset)
 
@@ -135,5 +188,5 @@ export function ScrollContainer(maxHeight?: number, content?: HTMLElement) {
   // 初始化时设置滚动条可见
   bar.style.opacity = '1'
 
-  return { container, setContent, setMaxHeight }
+  return { container, setContent, setMaxHeight, setOnHeightChange }
 }

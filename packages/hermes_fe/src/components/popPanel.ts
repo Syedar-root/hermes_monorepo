@@ -21,15 +21,18 @@ export interface PopPanelObj {
 
 const POP_PANEL_OFFSET = 4
 
-export function PopPanel(delay: number = 80000) {
+export function PopPanel(delay: number = 800, maxHeight: number = 400) {
   const panel = document.createElement('div')
   panel.classList.add(styles['hermes-panel'])
   panel.setAttribute('data-hermes-panel', '')
   // panel.appendChild(PanelContent(mockPanelContentItems))
   const { content: panelContent, setContent: setPanelContent } = PanelContent()
   const loading = Loading()
-  const { container: scrollContainer, setContent: setScrollContainer } =
-    ScrollContainer(300, loading)
+  const {
+    container: scrollContainer,
+    setContent: setScrollContainer,
+    setOnHeightChange,
+  } = ScrollContainer(maxHeight, loading)
   panel.appendChild(scrollContainer)
 
   let timer: number | null = null
@@ -104,6 +107,9 @@ export function PopPanel(delay: number = 80000) {
   ) => {
     // 确保事件监听被设置
     setupPanelEvents()
+    setOnHeightChange(() => {
+      calculatePosition(target)
+    })
 
     if (isPromise(contents)) {
       panel.style.display = 'block'
@@ -111,11 +117,19 @@ export function PopPanel(delay: number = 80000) {
 
       setScrollContainer(loading)
       calculatePosition(target)
+      const startTime = new Date()
 
       const contentItems = await contents
-      setPanelContent(contentItems)
-      setScrollContainer(panelContent)
-      calculatePosition(target)
+      const currTime = new Date()
+      const waitLoadingTime =
+        currTime.getTime() - startTime.getTime() < 1000
+          ? 1000 - (currTime.getTime() - startTime.getTime())
+          : 0
+      setTimeout(() => {
+        setPanelContent(contentItems)
+        setScrollContainer(panelContent)
+        calculatePosition(target)
+      }, waitLoadingTime)
     } else {
       panel.style.display = 'block'
       panel.style.opacity = '1'
