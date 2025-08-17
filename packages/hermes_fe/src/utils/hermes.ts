@@ -18,8 +18,7 @@ export class Hermes {
   private popPanel: PopPanelObj | null
   private popPanelMaxHeight: number = 400
 
-  public static requestBaseUrl: string =
-    'http://127.0.0.1:4523/m1/4854404-4509875-default'
+  public static requestBaseUrl: string = 'http://127.0.0.1:8000'
 
   private static BASE_CONFIG = {
     childList: true,

@@ -49,32 +49,119 @@ pnpm dev
 
 ## 使用方法
 
-### 引入组件
+### 安装SDK
+
+可以通过npm或pnpm安装SDK包：
+
+```bash
+# 使用npm
+npm install @syedar/hermes_fe
+
+# 使用pnpm
+pnpm add @syedar/hermes_fe
+```
+
+### 引入SDK
+
+在你的项目中引入Hermes SDK：
 
 ```typescript
 // 引入 Hermes 核心类
-import { Hermes } from 'hermes_fe'
+import { Hermes } from '@syedar/hermes_fe'
 
-// 初始化 Hermes
+// 引入样式文件
+import '@syedar/hermes_fe/dist/hermes_fe.css'
+```
+
+### 初始化配置
+
+创建Hermes实例并配置：
+
+```typescript
 const hermes = new Hermes({
-  markId: 'hermes-id', // 标记元素的data属性名
-  triggerId: 'hermes-trigger', // 触发方式的data属性名
-  requestBaseUrl: 'http://api.example.com', // API请求基础URL
-  popPanelMaxHeight: 400, // 弹窗最大高度
+  markId: 'hermes-id', // 标记元素的data属性名，默认值为hermes-id
+  triggerId: 'hermes-trigger', // 触发方式的data属性名，默认值为hermes-trigger
+  requestBaseUrl: 'http://api.example.com', // API请求基础URL, 默认为http://127.0.0.1:8000
+  popPanelMaxHeight: 400, // 弹窗最大高度，默认值为400
 })
 
 // 初始化组件
 hermes.init()
 ```
 
+具体请求路径：
+GET /hermes-dict/content?id={id}
+
 ### HTML中使用
 
+在HTML元素上添加数据属性来启用词典卡片：
+
 ```html
-<!-- 为元素添加 Hermes 标记 -->
-<div data-hermes-id="unique-id" data-hermes-trigger="hover">
-  鼠标悬停显示弹窗
+<!-- 基础用法 -->
+<div data-hermes-id="word-1" data-hermes-trigger="hover">
+  鼠标悬停显示词典解释
 </div>
+
+<!-- 自定义触发方式 -->
+<div data-hermes-id="word-2" data-hermes-trigger="click">点击显示词典解释</div>
 ```
+
+## 事件监听
+
+监听Hermes的各种事件：
+
+```typescript
+// 目前代码中没有实现事件系统，此处为预留接口
+// 监听卡片显示事件
+// hermes.on('show', (data) => {
+//   console.log('卡片显示:', data)
+// })
+
+// 监听卡片隐藏事件
+// hermes.on('hide', () => {
+//   console.log('卡片隐藏')
+// })
+```
+
+## 自定义样式
+
+通过CSS变量自定义卡片样式：
+
+```css
+/* 在你的样式文件中覆盖默认变量 */
+:root {
+  --hermes-bg-color: #ffffff;
+  --hermes-border-color: #e0e0e0;
+  --hermes-text-color: #333333;
+  --hermes-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+```
+
+## 配置选项
+
+| 参数名            | 类型   | 默认值                                             | 描述                 |
+| ----------------- | ------ | -------------------------------------------------- | -------------------- |
+| markId            | string | 'hermes-id'                                        | 标记元素的data属性名 |
+| triggerId         | string | 'hermes-trigger'                                   | 触发方式的data属性名 |
+| requestBaseUrl    | string | 'http://127.0.0.1:4523/m1/4854404-4509875-default' | API请求基础URL       |
+| popPanelMaxHeight | number | 400                                                | 弹窗最大高度         |
+
+## 常见问题
+
+### 1. 卡片不显示怎么办？
+
+- 检查是否正确初始化了Hermes实例
+- 确认元素上添加了正确的数据属性
+- 检查浏览器控制台是否有错误信息
+- 确保CSS文件已正确引入
+
+### 2. 如何自定义卡片样式？
+
+可以通过覆盖CSS变量来自定义样式，详情见[自定义样式](#自定义样式)部分。
+
+### 3. 如何修改触发方式？
+
+在HTML元素上设置 `data-hermes-trigger` 属性，可以设置为 'hover' 或 'click'。
 
 ## 项目结构
 
@@ -110,11 +197,7 @@ hermes_monorepo/
    - 加载状态显示
    - 错误处理和重试机制
 
-3. **缓存机制**
-   - 查询结果缓存
-   - 优化性能和减少API请求
-
-4. **灵活配置**
+3. **灵活配置**
    - 自定义触发方式
    - 卡片最大高度限制
    - API请求基础URL配置
