@@ -1,0 +1,29 @@
+.hermes-panel {
+  position: relative;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 12px;
+  position: absolute;
+  background-color: #fff;
+  filter: drop-shadow(0 0 10px #61616166);
+  opacity: 0;
+  transition: height 0.3s ease-in-out;
+}
+
+.hermes-panel::after {
+  position: absolute;
+  top: var(--arrow-offset);
+  left: 50%;
+  content: '';
+  width: 8px;
+  height: 8px;
+  z-index: -1;
+  transform-origin: 50% 50%;
+  transform: translateX(-50%) rotate(45deg);
+  background-color: inherit;
+}

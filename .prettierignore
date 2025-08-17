@@ -1,0 +1,30 @@
+# 忽略构建输出
+node_modules
+dist
+build
+
+# 忽略第三方库
+vendor
+
+# 忽略配置文件
+.eslintrc.js
+.prettierrc
+
+# 忽略日志文件
+*.log
+
+# 忽略图片和二进制文件
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.mp3
+*.mp4
+*.woff
+*.woff2
+
+# 忽略操作系统文件
+.DS_Store
+Thumbs.db

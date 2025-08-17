@@ -1,0 +1,3 @@
+packages:
+  - 'packages/*'  # 所有工具包
+  - 'apps/*'      # 所有应用

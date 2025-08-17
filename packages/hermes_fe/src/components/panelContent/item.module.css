@@ -1,0 +1,47 @@
+.hermes-panel-content-title {
+  min-width: 100px;
+  margin: 8px 0;
+}
+
+.hermes-panel-content-title-1 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.hermes-panel-content-title-2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.hermes-panel-content-title-3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.hermes-panel-content-text {
+  font-size: 14px;
+  font-weight: 400;
+  white-space: normal;
+  /* 当单词过长时，强制拆分换行（解决长数字/单词不换行问题） */
+  word-break: break-all; /* 任意位置拆分换行 */
+}
+
+.hermes-panel-content-link {
+  display: inline-block;
+  line-height: 22px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1890ff;
+  background: linear-gradient(to right, #1b96fa, #1b96fa) 100% 100% / 0 2px
+    no-repeat;
+  transition-property: color, background-size;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+
+.hermes-panel-content-link:hover {
+  color: #1b96fa;
+  background-size: 100% 2px;
+  font-weight: 500;
+  background-position: 0 100%;
+}

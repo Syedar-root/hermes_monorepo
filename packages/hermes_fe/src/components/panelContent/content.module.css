@@ -1,0 +1,58 @@
+.hermes-panel-content {
+  position: relative;
+  width: 250px;
+  max-height: 300px;
+  padding: 16px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  z-index: 1;
+}
+
+.hermes-panel-content-item {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  z-index: 2;
+}
+
+.hermes-panel-content-loading {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+  50% {
+    border-radius: 6px;
+    transform: rotate(180deg) scale(0.9);
+  }
+  100% {
+    transform: rotate(360deg);
+    border-radius: 50%;
+  }
+}
+
+.hermes-panel-content-loading::before {
+  content: '';
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background: #000;
+  border-radius: 50%;
+  transform-origin: 50% 50%;
+  animation: loading 2s ease-out infinite;
+}
