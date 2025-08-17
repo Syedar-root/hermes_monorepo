@@ -67,8 +67,8 @@ importers:
   apps/vue-test:
     dependencies:
       '@syedar/hermes_fe':
-        specifier: 0.1.0-beta.1
-        version: 0.1.0-beta.1
+        specifier: 0.1.0-beta.1.0.1
+        version: 0.1.0-beta.1.0.1
       vue:
         specifier: ^3.5.18
         version: 3.5.18(typescript@5.8.3)
@@ -598,8 +598,8 @@ packages:
   '@rushstack/ts-command-line@5.0.2':
     resolution: {integrity: sha512-+AkJDbu1GFMPIU8Sb7TLVXDv/Q7Mkvx+wAjEl8XiXVVq+p1FmWW6M3LYpJMmoHNckSofeMecgWg5lfMwNAAsEQ==}
 
-  '@syedar/hermes_fe@0.1.0-beta.1':
-    resolution: {integrity: sha512-z4QfHRCbujbe/znT4DOYW0b39HAS0Vlk6dJI1VBHT95sGFaBN0X3pRSA86DuV5hBpm3RfaTgL5efDSdVNBe4eA==}
+  '@syedar/hermes_fe@0.1.0-beta.1.0.1':
+    resolution: {integrity: sha512-ppgo/FblobD4LFlFFJitsN48sY5CGptFKSo3tPmC6BWLueqnlHIPID5GCAxaviN9QhVpl4Q0ZFZdUq8Ga1Rx1Q==}
 
   '@types/argparse@1.0.38':
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
@@ -2149,7 +2149,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@syedar/hermes_fe@0.1.0-beta.1':
+  '@syedar/hermes_fe@0.1.0-beta.1.0.1':
     dependencies:
       axios: 1.11.0
     transitivePeerDependencies:
