@@ -1,9 +1,11 @@
 {
-  "name": "hermes_fe",
+  "name": "@syedar/hermes_fe",
   "private": false,
-  "version": "0.1.0-beta.0.0.0",
+  "version": "0.1.0-beta.1",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "dist/hermes.cjs.js",
+  "module": "dist/hermes.es.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
