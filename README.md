@@ -106,37 +106,6 @@ GET /hermes-dict/content?id={id}
 <div data-hermes-id="word-2" data-hermes-trigger="click">点击显示词典解释</div>
 ```
 
-## 事件监听
-
-监听Hermes的各种事件：
-
-```typescript
-// 目前代码中没有实现事件系统，此处为预留接口
-// 监听卡片显示事件
-// hermes.on('show', (data) => {
-//   console.log('卡片显示:', data)
-// })
-
-// 监听卡片隐藏事件
-// hermes.on('hide', () => {
-//   console.log('卡片隐藏')
-// })
-```
-
-## 自定义样式
-
-通过CSS变量自定义卡片样式：
-
-```css
-/* 在你的样式文件中覆盖默认变量 */
-:root {
-  --hermes-bg-color: #ffffff;
-  --hermes-border-color: #e0e0e0;
-  --hermes-text-color: #333333;
-  --hermes-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-```
-
 ## 配置选项
 
 | 参数名            | 类型   | 默认值                                             | 描述                 |
@@ -155,11 +124,7 @@ GET /hermes-dict/content?id={id}
 - 检查浏览器控制台是否有错误信息
 - 确保CSS文件已正确引入
 
-### 2. 如何自定义卡片样式？
-
-可以通过覆盖CSS变量来自定义样式，详情见[自定义样式](#自定义样式)部分。
-
-### 3. 如何修改触发方式？
+### 2. 如何修改触发方式？
 
 在HTML元素上设置 `data-hermes-trigger` 属性，可以设置为 'hover' 或 'click'。
 
