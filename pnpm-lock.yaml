@@ -20,6 +20,9 @@ importers:
 
   apps/test:
     dependencies:
+      '@syedar/hermes_fe':
+        specifier: workspace:*
+        version: link:../../packages/hermes_fe
       react:
         specifier: ^19.1.1
         version: 19.1.1
