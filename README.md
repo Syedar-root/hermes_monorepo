@@ -115,6 +115,89 @@ GET /hermes-dict/content?id={id}
 | requestBaseUrl    | string | 'http://127.0.0.1:4523/m1/4854404-4509875-default' | API请求基础URL       |
 | popPanelMaxHeight | number | 400                                                | 弹窗最大高度         |
 
+## 渲染数据结构
+
+SDK使用以下数据结构来渲染词典卡片内容：
+
+```ts
+// packages/hermes_fe/src/components/
+panelContent / type.ts
+export enum PanelContentItemType {
+  FIRST_TITLE = 'firstTitle',
+  SECOND_TITLE = 'secondTitle',
+  THIRD_TITLE = 'thirdTitle',
+  TEXT = 'text',
+  LINK = 'link',
+}
+
+export interface PanelContentItem {
+  type: PanelContentItemType
+  content: string
+  marginVertical?: number[]
+  align?: 'start' | 'center' | 'end'
+  [key: string]: any
+}
+```
+
+### 数据结构说明
+
+1. 1. PanelContentItemType 枚举定义了五种内容类型：
+   - FIRST_TITLE : 一级标题
+   - SECOND_TITLE : 二级标题
+   - THIRD_TITLE : 三级标题
+   - TEXT : 普通文本
+   - LINK : 链接文本
+
+2. 2. PanelContentItem 接口包含以下字段：
+   - type : 内容类型（必需）
+   - content : 内容文本（必需）
+   - marginVertical : 垂直边距 [上, 下]（可选），如果只有一个值，则表示上下边距相等
+   - align : 对齐方式（可选），默认值为start
+   - 支持扩展字段
+
+### 渲染示例
+
+以下是渲染词典卡片的示例数据：
+
+```tS
+const contentItems: PanelContentItem[] = 
+[
+  {
+    type: PanelContentItemType.
+    FIRST_TITLE,
+    content: 'example',
+    marginVertical: [0, 5]
+  },
+  {
+    type: PanelContentItemType.TEXT,
+    content: '/ɪɡˈzæmpəl/',
+    marginVertical: [0, 10]
+  },
+  {
+    type: PanelContentItemType.
+    SECOND_TITLE,
+    content: 'noun',
+    marginVertical: [0, 5]
+  },
+  {
+    type: PanelContentItemType.TEXT,
+    content: 'a representative form or pattern',
+    marginVertical: [0, 5]
+  },
+  {
+    type: PanelContentItemType.TEXT,
+    content: 'Example: This is an 
+    example of how to use the SDK.',
+    marginVertical: [0, 10]
+  },
+  {
+    type: PanelContentItemType.LINK,
+    content: 'https://en.wikipedia.org/wiki/Example',
+    marginVertical: [0, 0]
+  }
+];
+```
+
 ## 常见问题
 
 ### 1. 卡片不显示怎么办？
