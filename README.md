@@ -13,40 +13,6 @@ Hermes SDK 提供了悬停显示词典卡片的核心功能，支持自定义触
 - **HTTP客户端**: Axios
 - **样式处理**: CSS Modules
 
-## 安装说明
-
-### 前提条件
-
-- Node.js 16+
-- pnpm 包管理器
-
-### 安装步骤
-
-1. 克隆项目到本地
-
-```bash
-git clone <repository-url>
-cd hermes_monorepo
-```
-
-2. 安装依赖
-
-```bash
-pnpm install
-```
-
-3. 进入前端包目录
-
-```bash
-cd packages/hermes_fe
-```
-
-4. 启动开发服务器
-
-```bash
-pnpm dev
-```
-
 ## 使用方法
 
 ### 安装SDK
