@@ -4,6 +4,8 @@ export enum PanelContentItemType {
   THIRD_TITLE = 'thirdTitle',
   TEXT = 'text',
   LINK = 'link',
+  IMAGE = 'image',
+  FORMULA = 'formula',
 }
 
 export interface PanelContentItem {

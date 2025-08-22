@@ -45,3 +45,9 @@
   font-weight: 500;
   background-position: 0 100%;
 }
+
+.hermes-panel-content-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}

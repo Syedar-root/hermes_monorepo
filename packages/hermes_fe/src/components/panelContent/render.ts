@@ -1,5 +1,7 @@
 import { PanelContentItemType, type PanelContentItem } from './type'
 import styles from './item.module.css'
+import katex from 'katex'
+import 'katex/dist/katex.min.css'
 
 function renderTitle(item: PanelContentItem) {
   const { type, content, marginVertical } = item
@@ -65,10 +67,46 @@ function renderLink(item: PanelContentItem) {
   return linkElement
 }
 
+function renderImage(item: PanelContentItem) {
+  const { content, marginVertical } = item
+  const imageElement = document.createElement('img')
+  imageElement.classList.add(styles['hermes-panel-content-image'])
+  imageElement.src = content
+  if (marginVertical) {
+    if (marginVertical.length === 2) {
+      imageElement.style.margin = `${marginVertical[0]}px 0 ${marginVertical[1]}px 0`
+    } else if (marginVertical.length === 1) {
+      imageElement.style.margin = `${marginVertical[0]}px 0`
+    }
+  } else {
+    imageElement.style.margin = '8px 0'
+  }
+  return imageElement
+}
+
+function renderFormula(item: PanelContentItem) {
+  const { content, marginVertical } = item
+  const formulaElement = document.createElement('div')
+  formulaElement.classList.add(styles['hermes-panel-content-formula'])
+  if (marginVertical) {
+    if (marginVertical.length === 2) {
+      formulaElement.style.margin = `${marginVertical[0]}px 0 ${marginVertical[1]}px 0`
+    } else if (marginVertical.length === 1) {
+      formulaElement.style.margin = `${marginVertical[0]}px 0`
+    }
+  } else {
+    formulaElement.style.margin = '8px 0'
+  }
+  katex.render(content, formulaElement)
+  return formulaElement
+}
+
 export const renderMap = {
   [PanelContentItemType.FIRST_TITLE]: renderTitle,
   [PanelContentItemType.SECOND_TITLE]: renderTitle,
   [PanelContentItemType.THIRD_TITLE]: renderTitle,
   [PanelContentItemType.TEXT]: renderText,
   [PanelContentItemType.LINK]: renderLink,
+  [PanelContentItemType.IMAGE]: renderImage,
+  [PanelContentItemType.FORMULA]: renderFormula,
 }

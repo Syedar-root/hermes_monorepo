@@ -12,7 +12,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint:pritter": "prettier --write src/",
-    "u-v-beta": "npx standard-version --prerelease beta",
+    "update-version-beta": "npx standard-version --prerelease beta",
     "publish-test": "pnpm publish --tag beta --access=public"
   },
   "devDependencies": {
